@@ -2,6 +2,8 @@ include device/hp/msm8996-common/BoardConfigCommon.mk
 
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 4096
+BOARD_ROOT_EXTRA_FOLDERS += firmware
+BOARD_VENDOR_SEPOLICY_DIRS += device/hp/raptor/sepolicy
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 \
     --second_offset 0x00f00000 --tags_offset 0x00000100 --header_version 0
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 \

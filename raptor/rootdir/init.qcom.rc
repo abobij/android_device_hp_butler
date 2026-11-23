@@ -2,6 +2,7 @@ on fs
     mount_all /vendor/etc/fstab.qcom --early
 
 on post-fs
+    mount vfat /dev/block/platform/soc/7464900.sdhci/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1026,dmask=227,fmask=337,context=u:object_r:vendor_file:s0
     mkdir /dev/usb-ffs 0770 shell shell
     mkdir /dev/usb-ffs/adb 0770 shell shell
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000

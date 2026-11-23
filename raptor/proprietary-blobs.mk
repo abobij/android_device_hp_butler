@@ -36,3 +36,12 @@ PRODUCT_COPY_FILES += $(foreach blob,$(raptor_firmware_blob_paths),\
     $(raptor_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
 PRODUCT_COPY_FILES += $(foreach blob,$(raptor_egl_blob_paths),\
     $(raptor_blob_dir)/8.1-graphics/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
+
+# RAPTOR Android 7.1.2 keystore and its QSEE client.
+raptor_keymaster_blob_paths := \
+    lib/hw/keystore.msm8996.so \
+    lib/libQSEEComAPI.so \
+    lib64/hw/keystore.msm8996.so \
+    lib64/libQSEEComAPI.so
+PRODUCT_COPY_FILES += $(foreach blob,$(raptor_keymaster_blob_paths),\
+    $(raptor_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))

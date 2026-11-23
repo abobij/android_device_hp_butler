@@ -1,0 +1,2 @@
+/firmware(/.*)?  u:object_r:vendor_file:s0
+/dev/qseecom      u:object_r:tee_device:s0
