@@ -42,6 +42,20 @@ raptor_keymaster_blob_paths := \
     lib/hw/keystore.msm8996.so \
     lib/libQSEEComAPI.so \
     lib64/hw/keystore.msm8996.so \
-    lib64/libQSEEComAPI.so
+    lib64/libQSEEComAPI.so \
+    bin/qseecomd \
+    lib64/lib-sec-disp.so \
+    lib64/libGPreqcancel.so \
+    lib64/libGPreqcancel_svc.so \
+    lib64/libStDrvInt.so \
+    lib64/libdiag.so \
+    lib64/libdrmfs.so \
+    lib64/libdrmtime.so \
+    lib64/libqisl.so \
+    lib64/librpmb.so \
+    lib64/libsecureui.so \
+    lib64/libsecureui_svcsock.so \
+    lib64/libssd.so \
+    lib64/libtime_genoff.so
 PRODUCT_COPY_FILES += $(foreach blob,$(raptor_keymaster_blob_paths),\
     $(raptor_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
