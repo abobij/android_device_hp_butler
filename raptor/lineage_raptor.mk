@@ -4,6 +4,8 @@ $(call inherit-product, vendor/lineage/config/common_mini.mk)
 $(call inherit-product, device/hp/msm8996-common/msm8996.mk)
 $(call inherit-product, device/hp/raptor/proprietary-blobs.mk)
 
+DEVICE_PACKAGE_OVERLAYS += device/hp/raptor/overlay
+
 # Keep framework audio services available during hardware bring-up.
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
@@ -29,7 +31,9 @@ PRODUCT_COPY_FILES += \
     device/hp/raptor/rootdir/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom \
     device/hp/raptor/rootdir/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
     device/hp/raptor/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
-    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    frameworks/native/data/etc/android.software.app_widgets.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.app_widgets.xml \
+    device/hp/raptor/permissions/raptor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/raptor.xml
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.sf.lcd_density=360
 PRODUCT_PROPERTY_OVERRIDES += ro.hardware.egl=adreno

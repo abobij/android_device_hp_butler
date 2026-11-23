@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <!-- SIP requires the Wi-Fi service, which this configuration does not provide. -->
+    <unavailable-feature name="android.software.sip" />
+    <unavailable-feature name="android.software.sip.voip" />
+</permissions>
