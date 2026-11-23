@@ -22,6 +22,11 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service \
     lights.msm8996
 
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service \
+    wpa_supplicant \
+    wpa_supplicant.conf
+
 raptor_audio_policy_dir := frameworks/av/services/audiopolicy/config
 PRODUCT_COPY_FILES += \
     $(raptor_audio_policy_dir)/audio_policy_configuration_generic.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
@@ -38,7 +43,8 @@ PRODUCT_COPY_FILES += \
     device/hp/raptor/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/native/data/etc/android.software.app_widgets.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.app_widgets.xml \
-    device/hp/raptor/permissions/raptor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/raptor.xml
+    device/hp/raptor/permissions/raptor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/raptor.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.sf.lcd_density=360
 PRODUCT_PROPERTY_OVERRIDES += ro.hardware.egl=adreno

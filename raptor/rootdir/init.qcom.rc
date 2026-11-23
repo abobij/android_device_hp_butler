@@ -13,6 +13,9 @@ on late-fs
     mount_all /vendor/etc/fstab.qcom --late
 
 on post-fs-data
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     setprop logd.logpersistd.size 2
     setprop logd.logpersistd logcatd
 
@@ -20,3 +23,15 @@ service vendor.qseecomd /vendor/bin/qseecomd
     class core
     user root
     group root
+
+service wpa_supplicant /vendor/bin/hw/wpa_supplicant -O/data/vendor/wifi/wpa/sockets -g@android:wpa_wlan0
+    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
+    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
+    interface android.hardware.wifi.supplicant@1.2::ISupplicant default
+    class main
+    user wifi
+    group wifi inet keystore
+    capabilities NET_ADMIN NET_RAW
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot

@@ -59,3 +59,7 @@ raptor_keymaster_blob_paths := \
     lib64/libtime_genoff.so
 PRODUCT_COPY_FILES += $(foreach blob,$(raptor_keymaster_blob_paths),\
     $(raptor_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
+
+PRODUCT_COPY_FILES += \
+    $(raptor_blob_dir)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini \
+    $(raptor_blob_dir)/etc/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf

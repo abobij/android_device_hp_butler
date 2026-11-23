@@ -2,6 +2,13 @@ include device/hp/msm8996-common/BoardConfigCommon.mk
 
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 4096
+
+BOARD_WLAN_DEVICE := qcwcn
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+WIFI_DRIVER_MODULE_NAME := wlan
+WIFI_DRIVER_MODULE_PATH := /vendor/lib/modules/wlan.ko
 BOARD_ROOT_EXTRA_FOLDERS += firmware
 BOARD_VENDOR_SEPOLICY_DIRS += device/hp/raptor/sepolicy
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 \
