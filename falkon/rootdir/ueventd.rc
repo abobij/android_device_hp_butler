@@ -1,3 +1,4 @@
 /dev/kgsl-3d0 0666 system system
 /dev/ion      0664 system system
 /dev/qseecom  0660 system drmrpc
+/dev/ttyHS0   0660 bluetooth bluetooth

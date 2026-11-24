@@ -3,6 +3,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 $(call inherit-product, vendor/lineage/config/common_mini.mk)
 
 PRODUCT_SHIPPING_API_LEVEL := 25
+DEVICE_PACKAGE_OVERLAYS += device/hp/msm8996-common/overlay
 
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
@@ -54,3 +55,23 @@ PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.usb.accessory.
 
 PRODUCT_PROPERTY_OVERRIDES += ro.hardware.egl=adreno
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=adb
+
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl \
+    android.hardware.bluetooth@1.0-service
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
+
+# The Nougat vendor library selects the QCA6174 UART transport.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    qcom.bluetooth.soc=rome \
+    ro.bt.bdaddr_path=/data/vendor/bluetooth/bdaddr \
+    persist.bluetooth.bluetooth_audio_hal.disabled=true
+
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service \
+    wpa_supplicant \
+    wpa_supplicant.conf

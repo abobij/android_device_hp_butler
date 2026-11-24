@@ -34,25 +34,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.camera.HAL3.enabled=0 \
     persist.camera.gyro.disable=1
 
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.0-service
-
 PRODUCT_COPY_FILES += \
-    device/hp/raptor/rootdir/init.raptor.bt-address.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.raptor.bt-address.sh \
-    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
-
-# The Nougat vendor library selects the QCA6174 UART transport.
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    qcom.bluetooth.soc=rome \
-    ro.bt.bdaddr_path=/data/vendor/bluetooth/bdaddr \
-    persist.bluetooth.bluetooth_audio_hal.disabled=true
-
-PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
-    wpa_supplicant \
-    wpa_supplicant.conf
+    device/hp/msm8996-common/rootdir/init.hp.bt-address.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.raptor.bt-address.sh
 
 PRODUCT_COPY_FILES += \
     device/hp/raptor/audio/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
@@ -60,7 +43,7 @@ PRODUCT_COPY_FILES += \
 
 raptor_audio_policy_dir := frameworks/av/services/audiopolicy/config
 PRODUCT_COPY_FILES += \
-    device/hp/raptor/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    device/hp/msm8996-common/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(raptor_audio_policy_dir)/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
     device/hp/raptor/audio/primary_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/primary_audio_policy_configuration.xml \
     $(raptor_audio_policy_dir)/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
@@ -74,8 +57,7 @@ PRODUCT_COPY_FILES += \
     device/hp/raptor/rootdir/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
     device/hp/raptor/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-    device/hp/raptor/permissions/raptor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/raptor.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
+    device/hp/raptor/permissions/raptor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/raptor.xml
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.sf.lcd_density=360
 

@@ -1,0 +1,58 @@
+on fs
+    mount_all /vendor/etc/fstab.qcom --early
+
+on post-fs
+    symlink /dev/block/platform/soc/7464900.sdhci /dev/block/bootdevice
+    mount vfat /dev/block/bootdevice/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1026,dmask=227,fmask=337,context=u:object_r:vendor_file:s0
+    mount vfat /dev/block/bootdevice/by-name/bluetooth /bt_firmware ro nosuid nodev noexec shortname=lower,uid=1002,gid=1002,dmask=227,fmask=337,context=u:object_r:vendor_file:s0
+    mount ext4 /dev/block/bootdevice/by-name/persist /persist ro nosuid nodev noexec noload
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+
+on boot
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/device/extldo
+    chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
+
+on late-fs
+    mount_all /vendor/etc/fstab.qcom --late
+
+on post-fs-data
+    mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
+    exec u:r:hal_bluetooth_default:s0 bluetooth bluetooth -- /vendor/bin/sh /vendor/etc/init.falkon.bt-address.sh
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+
+on property:wc_transport.start_hci=true
+    start vendor.wcnss_filter
+
+on property:wc_transport.start_hci=false
+    stop vendor.wcnss_filter
+
+service vendor.wcnss_filter /vendor/bin/wcnss_filter
+    class hal
+    user bluetooth
+    group bluetooth system wakelock
+    capabilities BLOCK_SUSPEND
+    disabled
+
+service vendor.qseecomd /vendor/bin/qseecomd
+    class core
+    user root
+    group root
+
+service wpa_supplicant /vendor/bin/hw/wpa_supplicant -O/data/vendor/wifi/wpa/sockets -g@android:wpa_wlan0
+    interface android.hardware.wifi.supplicant@1.0::ISupplicant default
+    interface android.hardware.wifi.supplicant@1.1::ISupplicant default
+    interface android.hardware.wifi.supplicant@1.2::ISupplicant default
+    class main
+    user wifi
+    group wifi inet keystore
+    capabilities NET_ADMIN NET_RAW
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot

@@ -1,0 +1,6 @@
+/firmware(/.*)?  u:object_r:vendor_file:s0
+/dev/qseecom     u:object_r:tee_device:s0
+/(vendor|system/vendor)/bin/qseecomd  u:object_r:tee_exec:s0
+/bt_firmware(/.*)?  u:object_r:vendor_file:s0
+/(vendor|system/vendor)/bin/wcnss_filter  u:object_r:hal_bluetooth_default_exec:s0
+/persist          u:object_r:vendor_file:s0

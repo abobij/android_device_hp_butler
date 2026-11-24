@@ -37,3 +37,10 @@ TARGET_KERNEL_SOURCE := kernel/hp/msm8996
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 KERNEL_TOOLCHAIN := $(abspath ../kernel_hp_raptor/tools/aarch64-linux-android-4.9/bin)
+
+BOARD_WLAN_DEVICE := qcwcn
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+WIFI_DRIVER_MODULE_NAME := wlan
+WIFI_DRIVER_MODULE_PATH := /vendor/lib/modules/wlan.ko

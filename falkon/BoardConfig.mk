@@ -1,7 +1,7 @@
 include device/hp/msm8996-common/BoardConfigCommon.mk
 
-BOARD_ROOT_EXTRA_FOLDERS += firmware
-BOARD_VENDOR_SEPOLICY_DIRS += device/hp/falcon/sepolicy
+BOARD_ROOT_EXTRA_FOLDERS += bt_firmware firmware persist
+BOARD_VENDOR_SEPOLICY_DIRS += device/hp/falkon/sepolicy
 
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 \
     androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 \
@@ -10,11 +10,12 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 \
     androidboot.selinux=permissive adreno.nopreempt=1
 
 TARGET_KERNEL_CONFIG := raptor_lineage_defconfig
+TARGET_KERNEL_ADDITIONAL_CONFIG := falkon_touch.config
 TARGET_KERNEL_ADDITIONAL_FLAGS := -j4 \
     ARM64_APPENDED_DTB_BUNDLE=$(abspath ../kernel_hp_raptor/reference/firmware/falcon-7.1.2-appended-dtbs.bin)
-TARGET_RECOVERY_FSTAB := device/hp/falcon/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := device/hp/falkon/rootdir/fstab.qcom
 DEVICE_MANIFEST_FILE := device/hp/msm8996-common/manifest.xml \
-    device/hp/falcon/manifest.xml
+    device/hp/falkon/manifest.xml
 
 # Sizes from the HFCA 7.1.2 GPT.
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
