@@ -3,9 +3,11 @@ on fs
 
 on post-fs
     symlink /dev/block/platform/soc/7464900.sdhci /dev/block/bootdevice
-    mount vfat /dev/block/bootdevice/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1026,dmask=227,fmask=337,context=u:object_r:vendor_file:s0
+    mount vfat /dev/block/platform/soc/7464900.sdhci/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1026,dmask=227,fmask=337,context=u:object_r:vendor_file:s0
     mount vfat /dev/block/bootdevice/by-name/bluetooth /bt_firmware ro nosuid nodev noexec shortname=lower,uid=1002,gid=1002,dmask=227,fmask=337,context=u:object_r:vendor_file:s0
     mount ext4 /dev/block/bootdevice/by-name/persist /persist ro nosuid nodev noexec noload
+    write /sys/kernel/boot_adsp/boot 1
+    wait /dev/snd/controlC0 5
     mkdir /dev/usb-ffs 0770 shell shell
     mkdir /dev/usb-ffs/adb 0770 shell shell
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
@@ -21,11 +23,14 @@ on late-fs
     mount_all /vendor/etc/fstab.qcom --late
 
 on post-fs-data
+    mkdir /data/vendor/camera 0770 camera camera
     mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
-    exec u:r:hal_bluetooth_default:s0 bluetooth bluetooth -- /vendor/bin/sh /vendor/etc/init.falkon.bt-address.sh
+    exec u:r:hal_bluetooth_default:s0 bluetooth bluetooth -- /vendor/bin/sh /vendor/etc/init.hp.bt-address.sh
     mkdir /data/vendor/wifi 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    setprop logd.logpersistd.size 2
+    setprop logd.logpersistd logcatd
 
 on property:wc_transport.start_hci=true
     start vendor.wcnss_filter
@@ -39,6 +44,11 @@ service vendor.wcnss_filter /vendor/bin/wcnss_filter
     group bluetooth system wakelock
     capabilities BLOCK_SUSPEND
     disabled
+
+service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
+    class hal
+    user camera
+    group camera system inet input graphics
 
 service vendor.qseecomd /vendor/bin/qseecomd
     class core

@@ -1,10 +1,13 @@
-# The 7.1.2 board configuration selects the RAPTOR sensors and wiring.
+hp_camera_nougat_dir := vendor/hp/msm8996-common/proprietary/7.1-camera
+hp_camera_oreo_dir := vendor/hp/msm8996-common/proprietary/8.1-camera
+
+# Both factory 7.1.2 images select the same camera modules.
 PRODUCT_COPY_FILES += \
-    $(raptor_blob_dir)/etc/camera/camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/camera/camera_config.xml \
-    $(raptor_blob_dir)/etc/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+    $(hp_camera_nougat_dir)/etc/camera/camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/camera/camera_config.xml \
+    $(hp_camera_nougat_dir)/etc/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 
 # Android 8.1 camera HAL, daemon, and runtime dependencies.
-raptor_camera_blob_paths := \
+hp_camera_blob_paths := \
     bin/mm-qcamera-daemon \
     etc/camera/imx268_chromatix.xml \
     etc/camera/ov16860_chromatix.xml \
@@ -190,11 +193,11 @@ raptor_camera_blob_paths := \
     lib/libts_detected_face_hal.so \
     lib/libts_face_beautify_hal.so \
     lib/libubifocus.so
-PRODUCT_COPY_FILES += $(foreach blob,$(raptor_camera_blob_paths), \
-    $(raptor_blob_dir)/8.1-camera/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
+PRODUCT_COPY_FILES += $(foreach blob,$(hp_camera_blob_paths), \
+    $(hp_camera_oreo_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
 
 # Camera post-processing firmware comes from the 7.1.2 hardware baseline.
-raptor_cpp_firmware := \
+hp_cpp_firmware := \
     cpp_firmware_v1_10_0.fw \
     cpp_firmware_v1_12_0.fw \
     cpp_firmware_v1_1_1.fw \
@@ -205,5 +208,5 @@ raptor_cpp_firmware := \
     cpp_firmware_v1_5_2.fw \
     cpp_firmware_v1_6_0.fw \
     cpp_firmware_v1_8_0.fw
-PRODUCT_COPY_FILES += $(foreach fw,$(raptor_cpp_firmware), \
-    $(raptor_blob_dir)/firmware/$(fw):$(TARGET_COPY_OUT_VENDOR)/firmware/$(fw))
+PRODUCT_COPY_FILES += $(foreach fw,$(hp_cpp_firmware), \
+    $(hp_camera_nougat_dir)/firmware/$(fw):$(TARGET_COPY_OUT_VENDOR)/firmware/$(fw))

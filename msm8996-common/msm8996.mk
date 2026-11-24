@@ -75,3 +75,53 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     wpa_supplicant \
     wpa_supplicant.conf
+
+PRODUCT_PACKAGES += \
+    Camera2 \
+    Recorder
+
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service \
+    vibrator.default
+
+# The Nougat audio HAL requires the HIDL 2.0 stream ABI.
+PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-service \
+    android.hardware.audio@2.0-impl:32 \
+    android.hardware.audio.effect@2.0-impl:32 \
+    audio.r_submix.default:32 \
+    libaudioroute:32 \
+    libtinycompress:32
+
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl:32 \
+    android.hardware.camera.provider@2.4-service
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml
+
+# The legacy camera statistics module blocks waiting for the unported sensor service.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    persist.camera.HAL3.enabled=0 \
+    persist.camera.gyro.disable=1
+
+hp_audio_policy_dir := frameworks/av/services/audiopolicy/config
+PRODUCT_COPY_FILES += \
+    device/hp/msm8996-common/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    $(hp_audio_policy_dir)/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
+    device/hp/msm8996-common/audio/primary_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/primary_audio_policy_configuration.xml \
+    $(hp_audio_policy_dir)/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
+    $(hp_audio_policy_dir)/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
+    $(hp_audio_policy_dir)/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
+    $(hp_audio_policy_dir)/surround_sound_configuration_5_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/surround_sound_configuration_5_0.xml
+
+PRODUCT_COPY_FILES += \
+    device/hp/msm8996-common/rootdir/fstab.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom \
+    device/hp/msm8996-common/rootdir/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom \
+    device/hp/msm8996-common/rootdir/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
+    device/hp/msm8996-common/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+    device/hp/msm8996-common/rootdir/init.hp.bt-address.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.bt-address.sh \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    device/hp/msm8996-common/permissions/hp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/hp.xml

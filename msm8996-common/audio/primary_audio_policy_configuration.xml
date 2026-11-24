@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Use MultiMedia1 playback on RAPTOR through the primary deep-buffer output. -->
+<!-- Use MultiMedia1 playback through the primary deep-buffer output. -->
 <module name="primary" halVersion="2.0">
     <attachedDevices>
         <item>Speaker</item>

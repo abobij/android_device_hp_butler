@@ -44,3 +44,12 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 WIFI_DRIVER_MODULE_NAME := wlan
 WIFI_DRIVER_MODULE_PATH := /vendor/lib/modules/wlan.ko
+
+# The factory audio HAL uses the extended tinycompress API.
+AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
+
+BOARD_ROOT_EXTRA_FOLDERS += bt_firmware firmware persist
+BOARD_VENDOR_SEPOLICY_DIRS += device/hp/msm8996-common/sepolicy
+DEVICE_MANIFEST_FILE := device/hp/msm8996-common/manifest.xml
+TARGET_RECOVERY_FSTAB := device/hp/msm8996-common/rootdir/fstab.qcom
+TARGET_KERNEL_CONFIG := raptor_lineage_defconfig

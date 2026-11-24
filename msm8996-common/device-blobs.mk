@@ -38,3 +38,43 @@ hp_keymaster_blob_paths := \
     lib64/libtime_genoff.so
 PRODUCT_COPY_FILES += $(foreach blob,$(hp_keymaster_blob_paths),\
     $(hp_device_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
+
+# Android 7.1.2 primary audio HAL and ACDB client from each board.
+hp_audio_blob_paths := \
+    lib/hw/audio.primary.msm8996.so \
+    lib/libacdbloader.so \
+    lib/libacdb-fts.so \
+    lib/libacdbrtac.so \
+    lib/libadiertac.so \
+    lib/libaudcal.so \
+    lib/libdiag.so
+PRODUCT_COPY_FILES += $(foreach blob,$(hp_audio_blob_paths), \
+    $(hp_device_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
+
+# These stock libraries look for their configuration under /system/etc.
+hp_audio_config_paths := \
+    $(hp_mixer_paths) \
+    etc/audio_platform_info.xml \
+    etc/acdbdata/QRD/QRD_Bluetooth_cal.acdb \
+    etc/acdbdata/QRD/QRD_General_cal.acdb \
+    etc/acdbdata/QRD/QRD_Global_cal.acdb \
+    etc/acdbdata/QRD/QRD_Handset_cal.acdb \
+    etc/acdbdata/QRD/QRD_Hdmi_cal.acdb \
+    etc/acdbdata/QRD/QRD_Headset_cal.acdb \
+    etc/acdbdata/QRD/QRD_Speaker_cal.acdb
+PRODUCT_COPY_FILES += $(foreach blob,$(hp_audio_config_paths), \
+    $(hp_device_blob_dir)/$(blob):system/$(blob))
+PRODUCT_COPY_FILES += \
+    $(hp_device_blob_dir)/$(hp_mixer_paths):system/etc/mixer_paths_tasha.xml
+
+# Nougat wireless configuration and Qualcomm Rome transport.
+hp_wireless_blob_paths := \
+    lib64/libbt-vendor.so \
+    lib64/libbtnv.so \
+    bin/wcnss_filter \
+    etc/wifi/wpa_supplicant_overlay.conf \
+    firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
+PRODUCT_COPY_FILES += $(foreach blob,$(hp_wireless_blob_paths),\
+    $(hp_device_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
+
+include device/hp/msm8996-common/camera/blobs.mk

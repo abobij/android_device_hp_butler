@@ -2,7 +2,6 @@
 <permissions>
     <feature name="android.hardware.microphone" />
 
-    <!-- SIP requires the Wi-Fi service, which this configuration does not provide. -->
     <unavailable-feature name="android.software.sip" />
     <unavailable-feature name="android.software.sip.voip" />
 </permissions>
