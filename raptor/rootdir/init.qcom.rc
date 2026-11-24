@@ -23,6 +23,7 @@ on late-fs
     mount_all /vendor/etc/fstab.qcom --late
 
 on post-fs-data
+    mkdir /data/vendor/camera 0770 camera camera
     mkdir /data/vendor/bluetooth 0770 bluetooth bluetooth
     exec u:r:hal_bluetooth_default:s0 bluetooth bluetooth -- /vendor/bin/sh /vendor/etc/init.raptor.bt-address.sh
     mkdir /data/vendor/wifi 0770 wifi wifi
@@ -43,6 +44,11 @@ service vendor.wcnss_filter /vendor/bin/wcnss_filter
     group bluetooth system wakelock
     capabilities BLOCK_SUSPEND
     disabled
+
+service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
+    class hal
+    user camera
+    group camera system inet input graphics
 
 service vendor.qseecomd /vendor/bin/qseecomd
     class core

@@ -3,3 +3,6 @@
 /dev/qseecom  0660 system drmrpc
 /dev/msm_audio_cal 0660 system audio
 /dev/ttyHS0   0660 bluetooth bluetooth
+/dev/video*      0660 system camera
+/dev/media*      0660 system camera
+/dev/v4l-subdev* 0660 system camera

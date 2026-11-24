@@ -100,3 +100,5 @@ raptor_bluetooth_blob_paths := \
     lib64/libbtnv.so
 PRODUCT_COPY_FILES += $(foreach blob,$(raptor_bluetooth_blob_paths), \
     $(raptor_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
+
+include device/hp/raptor/camera/blobs.mk

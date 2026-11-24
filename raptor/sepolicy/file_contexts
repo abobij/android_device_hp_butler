@@ -5,3 +5,4 @@
 /bt_firmware(/.*)?  u:object_r:vendor_file:s0
 /(vendor|system/vendor)/bin/wcnss_filter  u:object_r:hal_bluetooth_default_exec:s0
 /persist          u:object_r:vendor_file:s0
+/(vendor|system/vendor)/bin/mm-qcamera-daemon  u:object_r:hal_camera_default_exec:s0

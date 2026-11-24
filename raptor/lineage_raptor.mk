@@ -7,6 +7,7 @@ $(call inherit-product, device/hp/raptor/proprietary-blobs.mk)
 DEVICE_PACKAGE_OVERLAYS += device/hp/raptor/overlay
 
 PRODUCT_PACKAGES += \
+    Camera2 \
     LatinIME \
     Recorder
 
@@ -29,6 +30,19 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
+
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl:32 \
+    android.hardware.camera.provider@2.4-service
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml
+
+# The legacy camera statistics module blocks waiting for the unported sensor service.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    persist.camera.HAL3.enabled=0 \
+    persist.camera.gyro.disable=1
 
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
