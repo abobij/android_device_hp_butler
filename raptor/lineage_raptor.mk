@@ -6,6 +6,8 @@ $(call inherit-product, device/hp/raptor/proprietary-blobs.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/hp/raptor/overlay
 
+PRODUCT_PACKAGES += LatinIME
+
 # Keep framework audio services available during hardware bring-up.
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
