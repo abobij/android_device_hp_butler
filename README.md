@@ -1,6 +1,8 @@
 # LineageOS 17.1 for HP Pro/Elite X3 (Butler)
+Based on stock 7.1.2 (falkon/raptor) and 8.1.0 (raptor)
 
 ## Supported devices
+
 * **falkon** - HP Elite x3 (Retail, [converted to android 7.1.2](https://xdaforums.com/t/guide-how-to-install-android-to-hp-elite-x3.4565837/))
 * **raptor** - HP Pro x3 (Prototype, unreleased, ABU variant)
 
@@ -35,7 +37,9 @@
 ## TODO
 
 * Fix camera app hangs and exposure problems.
-* Bring up sensors, RIL, and fingerprint
-* Enable stereo on `falkon`
+* Bring up sensors, RIL, and fingerprint.
+* Enable stereo on `falkon`.
+* Use own DTS instead of stock ones.
+* Fix SELinux and FDE.
 
 Thanks to [Computershik73](https://github.com/Computershik73) for testing `falkon`
