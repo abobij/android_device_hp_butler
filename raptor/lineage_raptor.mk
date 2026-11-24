@@ -1,6 +1,3 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-$(call inherit-product, vendor/lineage/config/common_mini.mk)
 $(call inherit-product, device/hp/msm8996-common/msm8996.mk)
 $(call inherit-product, device/hp/raptor/proprietary-blobs.mk)
 
@@ -8,7 +5,6 @@ DEVICE_PACKAGE_OVERLAYS += device/hp/raptor/overlay
 
 PRODUCT_PACKAGES += \
     Camera2 \
-    LatinIME \
     Recorder
 
 PRODUCT_PACKAGES += \
@@ -26,12 +22,6 @@ PRODUCT_PACKAGES += \
     libtinycompress:32
 
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service \
-    android.hardware.keymaster@3.0-impl \
-    android.hardware.keymaster@3.0-service
-
-PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service
 
@@ -43,11 +33,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.camera.HAL3.enabled=0 \
     persist.camera.gyro.disable=1
-
-PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-impl \
-    android.hardware.light@2.0-service \
-    lights.msm8996
 
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
@@ -89,15 +74,10 @@ PRODUCT_COPY_FILES += \
     device/hp/raptor/rootdir/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
     device/hp/raptor/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-    frameworks/native/data/etc/android.software.app_widgets.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.app_widgets.xml \
     device/hp/raptor/permissions/raptor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/raptor.xml \
-    frameworks/native/data/etc/android.software.secure_lock_screen.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.secure_lock_screen.xml \
-    frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.sf.lcd_density=360
-PRODUCT_PROPERTY_OVERRIDES += ro.hardware.egl=adreno
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=adb
 
 # Optional host public key for local debugging. AOSP applies this to debuggable builds.
 ifdef RAPTOR_ADB_KEYS

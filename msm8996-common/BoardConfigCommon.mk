@@ -27,3 +27,13 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 
 USE_XML_AUDIO_POLICY_CONF := 1
+
+BOARD_KERNEL_BASE := 0x80000000
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 \
+    --second_offset 0x00f00000 --tags_offset 0x00000100 --header_version 0
+
+TARGET_KERNEL_SOURCE := kernel/hp/msm8996
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_COMPILE_WITH_MSM_KERNEL := true
+KERNEL_TOOLCHAIN := $(abspath ../kernel_hp_raptor/tools/aarch64-linux-android-4.9/bin)
