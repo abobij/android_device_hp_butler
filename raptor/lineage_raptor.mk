@@ -6,7 +6,9 @@ $(call inherit-product, device/hp/raptor/proprietary-blobs.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/hp/raptor/overlay
 
-PRODUCT_PACKAGES += LatinIME
+PRODUCT_PACKAGES += \
+    LatinIME \
+    Recorder
 
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
