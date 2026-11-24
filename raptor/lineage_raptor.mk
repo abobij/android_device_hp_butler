@@ -8,6 +8,11 @@ DEVICE_PACKAGE_OVERLAYS += device/hp/raptor/overlay
 
 PRODUCT_PACKAGES += LatinIME
 
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service \
+    vibrator.default
+
 # Keep framework audio services available during hardware bring-up.
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
