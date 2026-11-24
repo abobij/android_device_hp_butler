@@ -42,6 +42,7 @@ raptor_keymaster_blob_paths := \
     lib/hw/keystore.msm8996.so \
     lib/libQSEEComAPI.so \
     lib64/hw/keystore.msm8996.so \
+    lib64/hw/gatekeeper.msm8996.so \
     lib64/libQSEEComAPI.so \
     bin/qseecomd \
     lib64/lib-sec-disp.so \
