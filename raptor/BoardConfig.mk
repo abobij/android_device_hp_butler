@@ -12,7 +12,7 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 WIFI_DRIVER_MODULE_NAME := wlan
 WIFI_DRIVER_MODULE_PATH := /vendor/lib/modules/wlan.ko
-BOARD_ROOT_EXTRA_FOLDERS += firmware
+BOARD_ROOT_EXTRA_FOLDERS += bt_firmware firmware persist
 BOARD_VENDOR_SEPOLICY_DIRS += device/hp/raptor/sepolicy
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 \
     --second_offset 0x00f00000 --tags_offset 0x00000100 --header_version 0

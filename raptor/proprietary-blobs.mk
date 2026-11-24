@@ -92,3 +92,11 @@ PRODUCT_COPY_FILES += $(foreach blob,$(raptor_audio_config_paths), \
     $(raptor_blob_dir)/$(blob):system/$(blob))
 PRODUCT_COPY_FILES += \
     $(raptor_blob_dir)/etc/mixer_paths_tasha_raptor.xml:system/etc/mixer_paths_tasha.xml
+
+# RAPTOR Android 7.1.2 Qualcomm Rome Bluetooth UART transport.
+raptor_bluetooth_blob_paths := \
+    bin/wcnss_filter \
+    lib64/libbt-vendor.so \
+    lib64/libbtnv.so
+PRODUCT_COPY_FILES += $(foreach blob,$(raptor_bluetooth_blob_paths), \
+    $(raptor_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
