@@ -1,0 +1,39 @@
+# Local build output and firmware inputs
+/out/
+/builds/
+/dumps/
+/firmware/
+/vendor/
+*.img
+*.bin
+*.raw
+*.vhd
+*.vhdx
+*.zip
+*.7z
+
+# Local diagnostics
+/logs/
+*.log
+logcat*.txt
+dmesg*.txt
+
+# Local credentials and signing material
+.env
+.env.*
+adbkey
+adbkey.pub
+adb_keys
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*.pem
+*.pk8
+*.p12
+*.jks
+*.keystore
+
+__pycache__/
+*.pyc
+*.swp
