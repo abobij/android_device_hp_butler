@@ -8,7 +8,7 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 \
 
 TARGET_KERNEL_ADDITIONAL_CONFIG := falkon_touch.config
 TARGET_KERNEL_ADDITIONAL_FLAGS := -j4 \
-    ARM64_APPENDED_DTB_BUNDLE=$(abspath ../kernel_hp_raptor/reference/firmware/falcon-7.1.2-appended-dtbs.bin)
+    ARM64_APPENDED_DTB_BUNDLE=$(abspath vendor/hp/falkon/proprietary/boot/stock-dtbs.bin)
 DEVICE_MANIFEST_FILE += device/hp/falkon/manifest.xml
 
 # Sizes from the HFCA 7.1.2 GPT.

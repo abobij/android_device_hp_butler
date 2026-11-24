@@ -36,7 +36,6 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 \
 TARGET_KERNEL_SOURCE := kernel/hp/msm8996
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_COMPILE_WITH_MSM_KERNEL := true
-KERNEL_TOOLCHAIN := $(abspath ../kernel_hp_raptor/tools/aarch64-linux-android-4.9/bin)
 
 BOARD_WLAN_DEVICE := qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211

@@ -1,0 +1,24 @@
+From fd41aadb49a0630f039cea979396728b6e07509d Mon Sep 17 00:00:00 2001
+From: abobij <222517514+abobij@users.noreply.github.com>
+Date: Tue, 24 Nov 2026 00:43:18 +0200
+Subject: [PATCH] SettingsLib: handle a missing Wi-Fi manager in device info
+
+Change-Id: I4486b3ac99ce5efde5b83f51014ebd12d3c5a0db
+
+diff --git a/packages/SettingsLib/src/com/android/settingslib/deviceinfo/AbstractWifiMacAddressPreferenceController.java b/packages/SettingsLib/src/com/android/settingslib/deviceinfo/AbstractWifiMacAddressPreferenceController.java
+index 71778215..4857073b 100644
+--- a/packages/SettingsLib/src/com/android/settingslib/deviceinfo/AbstractWifiMacAddressPreferenceController.java
++++ b/packages/SettingsLib/src/com/android/settingslib/deviceinfo/AbstractWifiMacAddressPreferenceController.java
+@@ -81,7 +81,11 @@ public abstract class AbstractWifiMacAddressPreferenceController
+     @SuppressLint("HardwareIds")
+     @Override
+     protected void updateConnectivity() {
+-        final String[] macAddresses = mWifiManager.getFactoryMacAddresses();
++        if (mWifiMacAddress == null) {
++            return;
++        }
++        final String[] macAddresses =
++                mWifiManager == null ? null : mWifiManager.getFactoryMacAddresses();
+         String macAddress = null;
+         if (macAddresses != null && macAddresses.length > 0) {
+             macAddress = macAddresses[0];

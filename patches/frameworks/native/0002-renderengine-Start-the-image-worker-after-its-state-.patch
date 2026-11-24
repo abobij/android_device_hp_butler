@@ -1,0 +1,46 @@
+From 87ff83b2b4c381f213e52d5609f952c8c06856d5 Mon Sep 17 00:00:00 2001
+From: abobij <222517514+abobij@users.noreply.github.com>
+Date: Tue, 24 Nov 2026 05:53:21 +0200
+Subject: [PATCH 2/2] renderengine: Start the image worker after its state is
+ initialized
+
+Change-Id: I00e88f1617295386beed7e1f6eaa30e4d7a171fd
+
+diff --git a/libs/renderengine/gl/GLESRenderEngine.h b/libs/renderengine/gl/GLESRenderEngine.h
+index dd60e50..001c915 100644
+--- a/libs/renderengine/gl/GLESRenderEngine.h
++++ b/libs/renderengine/gl/GLESRenderEngine.h
+@@ -261,7 +261,7 @@ private:
+     friend class FlushTracer;
+     friend class ImageManager;
+     std::unique_ptr<FlushTracer> mFlushTracer;
+-    std::unique_ptr<ImageManager> mImageManager = std::make_unique<ImageManager>(this);
++    std::unique_ptr<ImageManager> mImageManager;
+ };
+ 
+ } // namespace gl
+diff --git a/libs/renderengine/gl/ImageManager.cpp b/libs/renderengine/gl/ImageManager.cpp
+index 5af0e4f..89c6c2f 100644
+--- a/libs/renderengine/gl/ImageManager.cpp
++++ b/libs/renderengine/gl/ImageManager.cpp
+@@ -28,6 +28,7 @@ namespace renderengine {
+ namespace gl {
+ 
+ ImageManager::ImageManager(GLESRenderEngine* engine) : mEngine(engine) {
++    mThread = std::thread([this]() { threadMain(); });
+     pthread_setname_np(mThread.native_handle(), "ImageManager");
+     // Use SCHED_FIFO to minimize jitter
+     struct sched_param param = {0};
+diff --git a/libs/renderengine/gl/ImageManager.h b/libs/renderengine/gl/ImageManager.h
+index b5ba554..170905a 100644
+--- a/libs/renderengine/gl/ImageManager.h
++++ b/libs/renderengine/gl/ImageManager.h
+@@ -57,7 +57,7 @@ private:
+     void queueOperation(const QueueEntry&& entry);
+     void threadMain();
+     GLESRenderEngine* const mEngine;
+-    std::thread mThread = std::thread([this]() { threadMain(); });
++    std::thread mThread;
+     std::condition_variable_any mCondition;
+     std::mutex mMutex;
+     std::queue<QueueEntry> mQueue GUARDED_BY(mMutex);

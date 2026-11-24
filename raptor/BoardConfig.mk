@@ -8,7 +8,7 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 \
     androidboot.selinux=permissive adreno.nopreempt=1
 
 TARGET_KERNEL_ADDITIONAL_FLAGS := -j4 \
-    ARM64_APPENDED_DTB_BUNDLE=$(abspath ../kernel_hp_raptor/reference/firmware/raptor-7.1.2-appended-dtbs.bin)
+    ARM64_APPENDED_DTB_BUNDLE=$(abspath vendor/hp/raptor/proprietary/boot/stock-dtbs.bin)
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864

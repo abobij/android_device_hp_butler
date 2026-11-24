@@ -1,0 +1,36 @@
+From c0ffcab5dfbc13aac114aeec79607688c0b684e3 Mon Sep 17 00:00:00 2001
+From: abobij <222517514+abobij@users.noreply.github.com>
+Date: Tue, 24 Nov 2026 01:45:58 +0200
+Subject: [PATCH] Settings: handle missing Wi-Fi in developer options
+
+Change-Id: I23905cdda3a24b0dd1ba392f8758ab0fce976bfd
+
+diff --git a/src/com/android/settings/development/WifiVerboseLoggingPreferenceController.java b/src/com/android/settings/development/WifiVerboseLoggingPreferenceController.java
+index de53a2d..cabe01e 100644
+--- a/src/com/android/settings/development/WifiVerboseLoggingPreferenceController.java
++++ b/src/com/android/settings/development/WifiVerboseLoggingPreferenceController.java
+@@ -44,6 +44,11 @@ public class WifiVerboseLoggingPreferenceController extends DeveloperOptionsPref
+         mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+     }
+ 
++    @Override
++    public boolean isAvailable() {
++        return mWifiManager != null;
++    }
++
+     @Override
+     public String getPreferenceKey() {
+         return WIFI_VERBOSE_LOGGING_KEY;
+diff --git a/src/com/android/settings/development/WirelessAdbPreferenceController.java b/src/com/android/settings/development/WirelessAdbPreferenceController.java
+index 42aae54..2aa6e8c 100644
+--- a/src/com/android/settings/development/WirelessAdbPreferenceController.java
++++ b/src/com/android/settings/development/WirelessAdbPreferenceController.java
+@@ -111,7 +111,7 @@ public class WirelessAdbPreferenceController extends DeveloperOptionsPreferenceC
+         int port = LineageSettings.Secure.getInt(mContext.getContentResolver(),
+                 LineageSettings.Secure.ADB_PORT, -1);
+         boolean enabled = port > 0;
+-        WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
++        WifiInfo wifiInfo = mWifiManager == null ? null : mWifiManager.getConnectionInfo();
+ 
+         if (enabled && wifiInfo != null) {
+             String hostAddress = NetworkUtils.intToInetAddress(
