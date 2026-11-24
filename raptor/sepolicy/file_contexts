@@ -1,3 +1,4 @@
 /firmware(/.*)?  u:object_r:vendor_file:s0
 /dev/qseecom      u:object_r:tee_device:s0
 /(vendor|system/vendor)/bin/qseecomd  u:object_r:tee_exec:s0
+/dev/msm_audio_cal  u:object_r:audio_device:s0

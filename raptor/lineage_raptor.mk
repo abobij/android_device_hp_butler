@@ -13,12 +13,14 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-service \
     vibrator.default
 
-# Keep framework audio services available during hardware bring-up.
+# The Nougat audio HAL requires the HIDL 2.0 stream ABI.
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
-    android.hardware.audio@4.0-impl:32 \
-    android.hardware.audio.effect@4.0-impl:32 \
-    audio.r_submix.default:32
+    android.hardware.audio@2.0-impl:32 \
+    android.hardware.audio.effect@2.0-impl:32 \
+    audio.r_submix.default:32 \
+    libaudioroute:32 \
+    libtinycompress:32
 
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
@@ -39,7 +41,7 @@ PRODUCT_PACKAGES += \
 raptor_audio_policy_dir := frameworks/av/services/audiopolicy/config
 PRODUCT_COPY_FILES += \
     $(raptor_audio_policy_dir)/audio_policy_configuration_generic.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(raptor_audio_policy_dir)/primary_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/primary_audio_policy_configuration.xml \
+    device/hp/raptor/audio/primary_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/primary_audio_policy_configuration.xml \
     $(raptor_audio_policy_dir)/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     $(raptor_audio_policy_dir)/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     $(raptor_audio_policy_dir)/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \

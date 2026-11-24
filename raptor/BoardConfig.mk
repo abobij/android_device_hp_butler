@@ -3,6 +3,9 @@ include device/hp/msm8996-common/BoardConfigCommon.mk
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 4096
 
+# The 7.1.2 primary HAL uses the extended tinycompress API.
+AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
+
 BOARD_WLAN_DEVICE := qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
