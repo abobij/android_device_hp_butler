@@ -17,6 +17,7 @@ if command -v ccache >/dev/null; then
   export USE_CCACHE=1 CCACHE_EXEC
   CCACHE_EXEC=$(command -v ccache)
 fi
+export BUILD_USERNAME="${BUILD_USERNAME:-android}" BUILD_HOSTNAME="${BUILD_HOSTNAME:-build}"
 export MKE2FS_CONFIG="$tree/system/extras/ext4_utils/mke2fs.conf"
 
 output=${OUT_DIR:-out}

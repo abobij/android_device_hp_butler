@@ -7,7 +7,7 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 \
     androidboot.selinux=permissive adreno.nopreempt=1
 
 TARGET_KERNEL_ADDITIONAL_CONFIG := falkon_touch.config
-TARGET_KERNEL_ADDITIONAL_FLAGS := -j4 \
+TARGET_KERNEL_ADDITIONAL_FLAGS += \
     ARM64_APPENDED_DTB_BUNDLE=$(abspath vendor/hp/falkon/proprietary/boot/stock-dtbs.bin)
 DEVICE_MANIFEST_FILE += device/hp/falkon/manifest.xml
 

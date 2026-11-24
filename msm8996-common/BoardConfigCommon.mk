@@ -50,5 +50,6 @@ AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
 BOARD_ROOT_EXTRA_FOLDERS += bt_firmware firmware persist
 BOARD_VENDOR_SEPOLICY_DIRS += device/hp/msm8996-common/sepolicy
 DEVICE_MANIFEST_FILE := device/hp/msm8996-common/manifest.xml
-TARGET_RECOVERY_FSTAB := device/hp/msm8996-common/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := device/hp/msm8996-common/rootdir/recovery.fstab
 TARGET_KERNEL_CONFIG := raptor_lineage_defconfig
+TARGET_KERNEL_ADDITIONAL_FLAGS := -j4 KBUILD_BUILD_USER=android KBUILD_BUILD_HOST=build
