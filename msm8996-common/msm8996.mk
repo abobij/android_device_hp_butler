@@ -1,6 +1,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-$(call inherit-product, vendor/lineage/config/common_mini.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/telephony.mk)
+$(call inherit-product, vendor/lineage/config/common_mini_phone.mk)
 
 PRODUCT_SHIPPING_API_LEVEL := 25
 DEVICE_PACKAGE_OVERLAYS += device/hp/msm8996-common/overlay
@@ -123,5 +124,36 @@ PRODUCT_COPY_FILES += \
     device/hp/msm8996-common/rootdir/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
     device/hp/msm8996-common/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     device/hp/msm8996-common/rootdir/init.hp.bt-address.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.bt-address.sh \
+    device/hp/msm8996-common/rootdir/init.hp.ril.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.ril.sh \
+    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.cdma.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     device/hp/msm8996-common/permissions/hp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/hp.xml
+
+PRODUCT_PACKAGES += \
+    rild \
+    librmnetctl \
+    rfs_msm_mpss_symlinks
+
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
+    ril.subscription.types=NV,RUIM \
+    ro.telephony.default_network=10 \
+    telephony.lteOnCdmaDevice=1 \
+    persist.radio.apm_sim_not_pwdn=1 \
+    persist.radio.sib16_support=1 \
+    persist.radio.custom_ecc=1 \
+    persist.vendor.radio.sib16_support=1 \
+    persist.vendor.radio.custom_ecc=1 \
+    persist.vendor.radio.rat_on=combine \
+    persist.rmnet.data.enable=true \
+    persist.data.mode=concurrent \
+    persist.data.netmgrd.qos.enable=true \
+    persist.data.wda.enable=true \
+    persist.data.df.dl_mode=5 \
+    persist.data.df.ul_mode=5 \
+    persist.data.df.agg.dl_pkt=10 \
+    persist.data.df.agg.dl_size=4096 \
+    persist.data.df.mux_count=8 \
+    persist.data.df.iwlan_mux=9 \
+    persist.data.df.dev_name=rmnet_usb0

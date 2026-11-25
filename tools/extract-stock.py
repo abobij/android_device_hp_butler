@@ -129,6 +129,12 @@ def extract_system(image, mappings, version, work, stage):
                     raise ValueError(f"{image}: unexpected WLAN configuration")
                 data = data.replace(old, new)
             blob.write_bytes(data)
+        elif dest.endswith(("/dsi_config.xml", "/netmgr_config.xml")):
+            text = blob.read_text(encoding="utf-8")
+            decl = '<?xml version="1.0" encoding="UTF-8"?>'
+            if decl in text and not text.lstrip().startswith("<?xml"):
+                text = decl + "\n" + text.replace(decl + "\n", "", 1).replace(decl, "", 1)
+                blob.write_text(text, encoding="utf-8")
         target = stage / dest
         target.parent.mkdir(parents=True, exist_ok=True)
         blob.replace(target)
