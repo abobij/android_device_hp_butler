@@ -13,26 +13,25 @@ Based on stock 7.1.2 (falkon/raptor) and 8.1.0 (raptor)
 |       Boot        |   ✅    |   ✅    |    Boots with display and touch.    |
 |      Wifi/BT      |   ✅    |   ✅    |                                     |
 |       Audio       |   ✅    |   ✅    | Main Speaker, Mic, 3.5mm Jack, A2DP |
-|        RIL        |   ❌    |   ❌    |                                     |
+|        RIL        |   ⚠️   |   ⚠️   |                                     |
 |     Keystore      |   ✅    |   ❓    |                                     |
-|    Encryption     |   ❌    |   ❌    |          Disabled for now           |
+|    Encryption     |   ⚠️   |   ⚠️   |          Disabled for now           |
 |      USB ADB      |   ✅    |   ✅    |                                     |
 |      USB OTG      |   ❓    |   ✅    |                                     |
-|      USB MTP      |   ❓    |   ❌    |                                     |
+|      USB MTP      |   ⚠️   |   ⚠️   |                                     |
 |   Camera/Torch    |   ✅    |   ✅    | Buggy app, no video recording yet.  |
-|    Fingerprint    |   ❌    |   ❌    |                                     |
-|  IR Front Camera  |  N/A   |   ❌    |     `falkon` only. Not planned.     |
-| SELinux Enforcing |   ❌    |   ❌    |          Disabled for now           |
-|      Sensors      |   ❌    |   ❌    | Untested. Auto-rotate doesn't work. |
-|       GNSS        |   ❓    |   ❓    |                                     |
-|        NFC        |   ❓    |   ❓    |                                     |
-|      microSD      |   ❓    |   ❓    |                                     |
+|    Fingerprint    |   ⚠️   |   ⚠️   |                                     |
+|  IR Front Camera  |  N/A   |   ⚠️   |     `falkon` only. Not planned.     |
+| SELinux Enforcing |   ⚠️   |   ⚠️   |          Disabled for now           |
+|      Sensors      |   ⚠️   |   ⚠️   | Untested. Auto-rotate doesn't work. |
+|       GNSS        |   ⚠️   |   ⚠️   |                                     |
+|        NFC        |   ⚠️   |   ⚠️   |                                     |
+|      microSD      |   ⚠️   |   ⚠️   |                                     |
 |      Haptics      |   ✅    |   ✅    |                                     |
-|        LED        |   ❌    |   ❌    |                                     |
+| Notification LED  |   ⚠️   |   ⚠️   |                                     |
 |    DP Alt-mode    |   ❓    |   ❓    |                                     |
 | Wireless Charging |  N/A   |   ❓    |       `falkon` only. Untested       |
-|     Charging      |   ✅    |   ❓    |     Offline charging untested.      |
-|                   |        |        |                                     |
+|     Charging      |   ✅    |   ✅    | Offline charging hangs on bootlogo. |
 
 ## TODO
 
