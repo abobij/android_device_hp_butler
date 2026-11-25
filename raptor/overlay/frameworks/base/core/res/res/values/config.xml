@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Extracted from stock Butler 8.1.0 (RAPTOR) framework-res -->
+    <integer-array name="config_autoBrightnessLevels" translatable="false">
+        <item>5</item>
+        <item>40</item>
+        <item>400</item>
+        <item>800</item>
+        <item>1500</item>
+        <item>10000</item>
+        <item>26000</item>
+    </integer-array>
+    <integer-array name="config_autoBrightnessLcdBacklightValues" translatable="false">
+        <item>5</item>
+        <item>25</item>
+        <item>51</item>
+        <item>77</item>
+        <item>128</item>
+        <item>180</item>
+        <item>254</item>
+        <item>255</item>
+    </integer-array>
+</resources>

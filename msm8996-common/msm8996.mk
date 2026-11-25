@@ -2,9 +2,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony.mk)
 $(call inherit-product, vendor/lineage/config/common_mini_phone.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
 PRODUCT_SHIPPING_API_LEVEL := 25
-DEVICE_PACKAGE_OVERLAYS += device/hp/msm8996-common/overlay
+DEVICE_PACKAGE_OVERLAYS := device/hp/msm8996-common/overlay $(DEVICE_PACKAGE_OVERLAYS)
 
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
@@ -141,10 +142,16 @@ PRODUCT_COPY_FILES += \
     device/hp/msm8996-common/rootdir/init.hp.bt-address.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.bt-address.sh \
     device/hp/msm8996-common/rootdir/init.hp.ril.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.ril.sh \
     device/hp/msm8996-common/rootdir/init.hp.sensors.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.sensors.sh \
+    frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.location.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.xml \
+    frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-    device/hp/msm8996-common/permissions/hp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/hp.xml
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+    frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
+    frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml \
+    frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
 PRODUCT_PACKAGES += \
     rild \
@@ -152,10 +159,16 @@ PRODUCT_PACKAGES += \
     rfs_msm_mpss_symlinks
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.opengles.version=196610 \
+    debug.gralloc.enable_fb_ubwc=1 \
+    sdm.debug.disable_rotator_split=1 \
+    sdm.perf_hint_window=50 \
+    ro.qualcomm.cabl=2 \
     rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
     ril.subscription.types=NV,RUIM \
     ro.telephony.default_network=10 \
     telephony.lteOnCdmaDevice=1 \
+    persist.radio.multisim.config=dsds \
     persist.radio.apm_sim_not_pwdn=1 \
     persist.radio.sib16_support=1 \
     persist.radio.custom_ecc=1 \

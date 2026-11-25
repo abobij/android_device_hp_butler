@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Extracted from stock Butler 7.1.2 (FALKON) framework-res -->
+    <integer-array name="config_autoBrightnessLevels" translatable="false">
+        <item>10</item>
+        <item>50</item>
+        <item>100</item>
+        <item>200</item>
+        <item>400</item>
+        <item>500</item>
+        <item>800</item>
+        <item>1000</item>
+        <item>1600</item>
+        <item>3000</item>
+        <item>10000</item>
+    </integer-array>
+    <integer-array name="config_autoBrightnessLcdBacklightValues" translatable="false">
+        <item>14</item>
+        <item>28</item>
+        <item>37</item>
+        <item>51</item>
+        <item>71</item>
+        <item>80</item>
+        <item>96</item>
+        <item>108</item>
+        <item>144</item>
+        <item>181</item>
+        <item>254</item>
+        <item>255</item>
+    </integer-array>
+    <integer name="config_autoBrightnessBrighteningLightDebounce">4000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">8000</integer>
+</resources>

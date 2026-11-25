@@ -1,6 +1,8 @@
 $(call inherit-product, device/hp/msm8996-common/msm8996.mk)
 $(call inherit-product, device/hp/raptor/proprietary-blobs.mk)
 
+DEVICE_PACKAGE_OVERLAYS := device/hp/raptor/overlay $(DEVICE_PACKAGE_OVERLAYS)
+
 PRODUCT_COPY_FILES += \
     device/hp/raptor/audio/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
