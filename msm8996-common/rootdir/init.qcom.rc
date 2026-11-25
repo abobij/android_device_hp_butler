@@ -5,8 +5,9 @@ on post-fs
     symlink /dev/block/platform/soc/7464900.sdhci /dev/block/bootdevice
     mount vfat /dev/block/platform/soc/7464900.sdhci/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1026,dmask=227,fmask=337,context=u:object_r:vendor_file:s0
     mount vfat /dev/block/bootdevice/by-name/bluetooth /bt_firmware ro nosuid nodev noexec shortname=lower,uid=1002,gid=1002,dmask=227,fmask=337,context=u:object_r:vendor_file:s0
-    mount ext4 /dev/block/bootdevice/by-name/persist /persist ro nosuid nodev noexec noload
+    mount ext4 /dev/block/bootdevice/by-name/persist /persist noatime nosuid nodev barrier=1
     write /sys/kernel/boot_adsp/boot 1
+    write /sys/kernel/boot_slpi/boot 1
     wait /dev/snd/controlC0 5
     mkdir /dev/usb-ffs 0770 shell shell
     mkdir /dev/usb-ffs/adb 0770 shell shell
@@ -89,6 +90,19 @@ service vendor.qseecomd /vendor/bin/qseecomd
     class core
     user root
     group root
+
+service vendor.sensors /vendor/bin/sensors.qcom
+    class core
+    user root
+    group root
+    seclabel u:r:hal_sensors_default:s0
+    disabled
+
+service vendor.sensor-sh /vendor/bin/sh /vendor/etc/init.hp.sensors.sh
+    class core
+    user root
+    seclabel u:r:vendor_init:s0
+    oneshot
 
 service vendor.irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class core

@@ -29,6 +29,7 @@
 /dev/uio1       0660 system system
 /dev/uio2       0660 system system
 /dev/subsys_*   0640 system system
+/dev/sensors    0660 root system
 /dev/ramdump*   0640 system system
 /dev/system_health_monitor 0644 radio system
 /sys/devices/virtual/smdpkt/smdcntl* open_timeout 0664 radio radio

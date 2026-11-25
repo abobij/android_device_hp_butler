@@ -253,3 +253,11 @@
 /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0_vendor.so	msm8996-common/proprietary/8.1-ril/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0_vendor.so
 /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0_vendor.so	msm8996-common/proprietary/8.1-ril/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0_vendor.so
 /vendor/radio/qcril_database/qcril.db	msm8996-common/proprietary/8.1-ril/radio/qcril_database/qcril.db
+/vendor/bin/sensors.qcom	msm8996-common/proprietary/8.1-sensors/bin/sensors.qcom
+/vendor/etc/sensors/hals.conf	msm8996-common/proprietary/8.1-sensors/etc/sensors/hals.conf
+/vendor/etc/sensors/sensor_def_qcomdev.conf	msm8996-common/proprietary/8.1-sensors/etc/sensors/sensor_def_qcomdev.conf
+/vendor/lib64/libsensor1.so	msm8996-common/proprietary/8.1-sensors/lib64/libsensor1.so
+/vendor/lib64/libsensor_reg.so	msm8996-common/proprietary/8.1-sensors/lib64/libsensor_reg.so
+/vendor/lib64/libsensor_thresh.so	msm8996-common/proprietary/8.1-sensors/lib64/libsensor_thresh.so
+/vendor/lib64/libsensor_user_cal.so	msm8996-common/proprietary/8.1-sensors/lib64/libsensor_user_cal.so
+/vendor/lib64/sensors.ssc.so	msm8996-common/proprietary/8.1-sensors/lib64/sensors.ssc.so
