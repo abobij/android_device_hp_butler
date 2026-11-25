@@ -88,7 +88,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
-    android.hardware.sensors@1.0-service
+    android.hardware.sensors@1.0-service \
+    android.hardware.usb@1.0-service.hp
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.accelerometer.xml \
@@ -135,6 +136,7 @@ PRODUCT_COPY_FILES += \
     device/hp/msm8996-common/rootdir/fstab.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom \
     device/hp/msm8996-common/rootdir/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom \
     device/hp/msm8996-common/rootdir/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
+    device/hp/msm8996-common/rootdir/init.hp.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.hp.usb.rc \
     device/hp/msm8996-common/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     device/hp/msm8996-common/rootdir/init.hp.bt-address.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.bt-address.sh \
     device/hp/msm8996-common/rootdir/init.hp.ril.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.ril.sh \

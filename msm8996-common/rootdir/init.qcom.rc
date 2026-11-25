@@ -1,3 +1,5 @@
+import /vendor/etc/init/hw/init.hp.usb.rc
+
 on fs
     mount_all /vendor/etc/fstab.qcom --early
 
@@ -13,6 +15,7 @@ on post-fs
     mkdir /dev/usb-ffs/adb 0770 shell shell
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
     write /sys/class/android_usb/android0/f_ffs/aliases adb
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
 
 on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
