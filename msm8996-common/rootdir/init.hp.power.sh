@@ -12,36 +12,56 @@ echo -n enable > /sys/devices/soc/soc:qcom,bcl/mode
 
 echo 1 > /proc/sys/kernel/sched_prefer_sync_wakee_to_waker
 
-# Configure interactive governor for the LITTLE cluster.
+# Configure responsive interactive governor for the LITTLE cluster.
 echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
 echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif
-echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
-echo 90 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
+echo 10000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
+echo 75 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
 echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
-echo 960000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
+echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack
+echo 1113600 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
 echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
-echo 80 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
-echo 79000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
+echo "65 960000:75 1190400:80" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
+echo 40000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
+echo 80000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
+echo 120000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration
 echo 307200 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif
 
-# Configure interactive governor for the big cluster.
+# Configure responsive interactive governor for the big cluster.
 echo 1 > /sys/devices/system/cpu/cpu2/online
 echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
 echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_sched_load
 echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/use_migration_notif
-echo "19000 1400000:39000 1700000:19000 2100000:79000" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
-echo 90 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load
+echo "10000 1478400:19000" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/above_hispeed_delay
+echo 75 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/go_hispeed_load
 echo 20000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate
-echo 1248000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq
+echo 20000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_slack
+echo 1478400 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq
 echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/io_is_busy
-echo "85 1500000:90 1800000:70 2100000:95" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
-echo 19000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time
-echo 79000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis
+echo "70 1248000:75 1555200:80 1785600:85" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
+echo 40000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time
+echo 80000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis
+echo 120000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/boostpulse_duration
 echo 307200 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
 echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/ignore_hispeed_on_notif
+
+# Allow PowerHAL (uid system) to pulse boost and adjust cluster limits.
+for cpu in cpu0 cpu2; do
+    chown system system /sys/devices/system/cpu/$cpu/cpufreq/interactive/boost
+    chmod 0664 /sys/devices/system/cpu/$cpu/cpufreq/interactive/boost
+    chown system system /sys/devices/system/cpu/$cpu/cpufreq/interactive/boostpulse
+    chmod 0220 /sys/devices/system/cpu/$cpu/cpufreq/interactive/boostpulse
+    chown system system /sys/devices/system/cpu/$cpu/cpufreq/interactive/boostpulse_duration
+    chmod 0664 /sys/devices/system/cpu/$cpu/cpufreq/interactive/boostpulse_duration
+    chown system system /sys/devices/system/cpu/$cpu/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/$cpu/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/$cpu/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/$cpu/cpufreq/scaling_max_freq
+done
+chown system system /proc/sys/kernel/sched_boost
+chmod 0664 /proc/sys/kernel/sched_boost
 
 # Re-enable thermal and BCL hotplug.
 echo 1 > /sys/module/msm_thermal/core_control/enabled
@@ -51,12 +71,13 @@ echo "$bcl_soc_hotplug_mask" > /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask
 echo -n enable > /sys/devices/soc/soc:qcom,bcl/mode
 
 # Input boost and HMP scheduler tunables.
-echo "0:1324800 2:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
-echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+echo "0:1113600 2:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
+echo 120 > /sys/module/cpu_boost/parameters/input_boost_ms
+echo 1 > /sys/module/cpu_boost/parameters/sched_boost_on_input
 echo 0 > /proc/sys/kernel/sched_boost
 echo 1 > /proc/sys/kernel/sched_migration_fixup
-echo 45 > /proc/sys/kernel/sched_downmigrate
-echo 45 > /proc/sys/kernel/sched_upmigrate
+echo 40 > /proc/sys/kernel/sched_downmigrate
+echo 65 > /proc/sys/kernel/sched_upmigrate
 echo 400000 > /proc/sys/kernel/sched_freq_inc_notify
 echo 400000 > /proc/sys/kernel/sched_freq_dec_notify
 echo 3 > /proc/sys/kernel/sched_spill_nr_run
@@ -66,7 +87,7 @@ echo 100 > /proc/sys/kernel/sched_init_task_load
 for cpubw in /sys/class/devfreq/*qcom,cpubw*; do
     [ -d "$cpubw" ] || continue
     echo "bw_hwmon" > "$cpubw/governor"
-    echo 50 > "$cpubw/polling_interval"
+    echo 20 > "$cpubw/polling_interval"
     echo 1525 > "$cpubw/min_freq"
     echo "1525 5195 11863 13763" > "$cpubw/bw_hwmon/mbps_zones"
     echo 4 > "$cpubw/bw_hwmon/sample_ms"

@@ -39,4 +39,6 @@ LOCAL_MODULE := rfs_msm_mpss_symlinks
 LOCAL_ADDITIONAL_DEPENDENCIES := $(RFS_MSM_MPSS_SYMLINKS)
 include $(BUILD_PHONY_PACKAGE)
 
+include $(call all-makefiles-under,$(LOCAL_PATH))
+
 endif
