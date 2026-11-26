@@ -1,0 +1,53 @@
+From 46b6accb75875764c646fd8c30a6cb82ae10f88c Mon Sep 17 00:00:00 2001
+From: abobij <222517514+abobij@users.noreply.github.com>
+Date: Thu, 26 Nov 2026 10:50:14 +0200
+Subject: [PATCH] Settings: Prefer ro.product.marketname for displayed model
+
+Keep Build.MODEL concise (for example, 'Pro x3') while displaying ro.product.marketname ('HP Pro x3') in About phone and Model & hardware when present.
+
+Change-Id: Ia50970932c47bb460d4692dc5038804f4550ce6f
+---
+ .../deviceinfo/HardwareInfoPreferenceController.java      | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/com/android/settings/deviceinfo/HardwareInfoPreferenceController.java b/src/com/android/settings/deviceinfo/HardwareInfoPreferenceController.java
+index 29f1391..61a07fc 100644
+--- a/src/com/android/settings/deviceinfo/HardwareInfoPreferenceController.java
++++ b/src/com/android/settings/deviceinfo/HardwareInfoPreferenceController.java
+@@ -17,6 +17,8 @@ package com.android.settings.deviceinfo;
+ 
+ import android.content.Context;
+ import android.os.Build;
++import android.os.SystemProperties;
++import android.text.TextUtils;
+ import android.util.Log;
+ 
+ import androidx.preference.PreferenceScreen;
+@@ -53,13 +55,15 @@ public class HardwareInfoPreferenceController extends BasePreferenceController {
+     }
+ 
+     public static String getDeviceModel() {
++        final String marketName = SystemProperties.get("ro.product.marketname");
++        final String model = TextUtils.isEmpty(marketName) ? Build.MODEL : marketName;
+         FutureTask<String> msvSuffixTask = new FutureTask<>(() -> DeviceInfoUtils.getMsvSuffix());
+ 
+         msvSuffixTask.run();
+         try {
+             // Wait for msv suffix value.
+             final String msvSuffix = msvSuffixTask.get();
+-            return Build.MODEL + msvSuffix;
++            return model + msvSuffix;
+         } catch (ExecutionException e) {
+             Log.e(TAG, "Execution error, so we only show model name");
+         } catch (InterruptedException e) {
+@@ -67,6 +71,6 @@ public class HardwareInfoPreferenceController extends BasePreferenceController {
+         }
+         // If we can't get an msv suffix value successfully,
+         // it's better to return model name.
+-        return Build.MODEL;
++        return model;
+     }
+ }
+-- 
+2.56.0
+
