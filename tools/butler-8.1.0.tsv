@@ -201,7 +201,6 @@
 /vendor/lib64/libgsl.so	msm8996-common/proprietary/8.1-graphics/lib64/libgsl.so
 /vendor/lib64/libllvm-glnext.so	msm8996-common/proprietary/8.1-graphics/lib64/libllvm-glnext.so
 /vendor/lib64/libllvm-qgl.so	msm8996-common/proprietary/8.1-graphics/lib64/libllvm-qgl.so
-/vendor/etc/gps.conf	msm8996-common/proprietary/8.1-gps/etc/gps.conf
 /vendor/lib64/hw/android.hardware.gnss@1.0-impl-qti.so	msm8996-common/proprietary/8.1-gps/lib64/hw/android.hardware.gnss@1.0-impl-qti.so
 /vendor/lib64/libgnss.so	msm8996-common/proprietary/8.1-gps/lib64/libgnss.so
 /vendor/lib64/libgps.utils.so	msm8996-common/proprietary/8.1-gps/lib64/libgps.utils.so
