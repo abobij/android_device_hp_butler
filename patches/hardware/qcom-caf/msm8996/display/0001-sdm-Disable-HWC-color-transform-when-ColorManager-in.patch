@@ -1,0 +1,58 @@
+From c43b730367198429af77d0eeef243cc9c9b67cc7 Mon Sep 17 00:00:00 2001
+From: abobij <222517514+abobij@users.noreply.github.com>
+Date: Thu, 26 Nov 2026 09:42:07 +0200
+Subject: [PATCH] sdm: Disable HWC color transform when ColorManager init fails
+
+Change-Id: I506ff1bf59a749195889225b8059a606231db28c
+---
+ sdm/libs/core/core_impl.cpp | 6 +++++-
+ sdm/libs/core/core_impl.h   | 1 +
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/sdm/libs/core/core_impl.cpp b/sdm/libs/core/core_impl.cpp
+index 212612c..599be5c 100644
+--- a/sdm/libs/core/core_impl.cpp
++++ b/sdm/libs/core/core_impl.cpp
+@@ -91,7 +91,10 @@ DisplayError CoreImpl::Init() {
+   error = ColorManagerProxy::Init(hw_resource_);
+   // if failed, doesn't affect display core functionalities.
+   if (error != kErrorNone) {
++    color_mgr_supported_ = false;
+     DLOGW("Unable creating color manager and continue without it.");
++  } else {
++    color_mgr_supported_ = true;
+   }
+ 
+   return kErrorNone;
+@@ -108,6 +111,7 @@ DisplayError CoreImpl::Deinit() {
+   SCOPE_LOCK(locker_);
+ 
+   ColorManagerProxy::Deinit();
++  color_mgr_supported_ = false;
+ 
+   comp_mgr_.Deinit();
+   HWInfoInterface::Destroy(hw_info_intf_);
+@@ -182,7 +186,7 @@ DisplayError CoreImpl::GetFirstDisplayInterfaceType(HWDisplayInterfaceInfo *hw_d
+ }
+ 
+ bool CoreImpl::IsColorTransformSupported() {
+-    return (hw_resource_.has_ppp) ? false : true;
++    return color_mgr_supported_ && !hw_resource_.has_ppp;
+ }
+ }  // namespace sdm
+ 
+diff --git a/sdm/libs/core/core_impl.h b/sdm/libs/core/core_impl.h
+index e5156aa..976a99c 100644
+--- a/sdm/libs/core/core_impl.h
++++ b/sdm/libs/core/core_impl.h
+@@ -72,6 +72,7 @@ class CoreImpl : public CoreInterface {
+   CreateExtensionInterface create_extension_intf_ = NULL;
+   DestroyExtensionInterface destroy_extension_intf_ = NULL;
+   SocketHandler *socket_handler_ = NULL;
++  bool color_mgr_supported_ = false;
+ };
+ 
+ }  // namespace sdm
+-- 
+2.56.0
+
