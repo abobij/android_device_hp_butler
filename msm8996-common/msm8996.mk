@@ -22,16 +22,20 @@ hp_egl_blob_paths := \
     lib/egl/libEGL_adreno.so \
     lib/egl/libGLESv1_CM_adreno.so \
     lib/egl/libGLESv2_adreno.so \
+    lib/hw/vulkan.msm8996.so \
     lib/libadreno_utils.so \
     lib/libgsl.so \
     lib/libllvm-glnext.so \
+    lib/libllvm-qgl.so \
     lib64/egl/eglSubDriverAndroid.so \
     lib64/egl/libEGL_adreno.so \
     lib64/egl/libGLESv1_CM_adreno.so \
     lib64/egl/libGLESv2_adreno.so \
+    lib64/hw/vulkan.msm8996.so \
     lib64/libadreno_utils.so \
     lib64/libgsl.so \
-    lib64/libllvm-glnext.so
+    lib64/libllvm-glnext.so \
+    lib64/libllvm-qgl.so
 
 PRODUCT_COPY_FILES += $(foreach blob,$(hp_egl_blob_paths),\
     vendor/hp/msm8996-common/proprietary/8.1-graphics/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
@@ -90,7 +94,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
-    android.hardware.usb@1.0-service.hp
+    android.hardware.usb@1.0-service.hp \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service \
+    android.hardware.drm@1.2-service.clearkey \
+    android.hardware.gnss@1.0-service.hp \
+    android.hardware.health@2.0-service \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service \
+    memtrack.msm8996 \
+    android.hardware.power@1.2-service-qti \
+    android.hardware.thermal@1.0-impl \
+    android.hardware.thermal@1.0-service \
+    thermal.msm8996
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.accelerometer.xml \
@@ -140,15 +156,20 @@ PRODUCT_COPY_FILES += \
     device/hp/msm8996-common/rootdir/init.hp.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.hp.usb.rc \
     device/hp/msm8996-common/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     device/hp/msm8996-common/rootdir/init.hp.bt-address.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.bt-address.sh \
+    device/hp/msm8996-common/rootdir/init.hp.power.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.power.sh \
     device/hp/msm8996-common/rootdir/init.hp.ril.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.ril.sh \
     device/hp/msm8996-common/rootdir/init.hp.sensors.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init.hp.sensors.sh \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.location.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.xml \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml

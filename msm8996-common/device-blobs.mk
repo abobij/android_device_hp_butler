@@ -78,5 +78,6 @@ PRODUCT_COPY_FILES += $(foreach blob,$(hp_wireless_blob_paths),\
     $(hp_device_blob_dir)/$(blob):$(TARGET_COPY_OUT_VENDOR)/$(blob))
 
 include device/hp/msm8996-common/camera/blobs.mk
+include device/hp/msm8996-common/gps/blobs.mk
 include device/hp/msm8996-common/ril/blobs.mk
 include device/hp/msm8996-common/sensors/blobs.mk

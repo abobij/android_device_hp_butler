@@ -48,6 +48,7 @@ WIFI_DRIVER_MODULE_PATH := /vendor/lib/modules/wlan.ko
 AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
 
 BOARD_ROOT_EXTRA_FOLDERS += bt_firmware firmware persist
+TARGET_USES_INTERACTION_BOOST := true
 BOARD_VENDOR_SEPOLICY_DIRS += device/hp/msm8996-common/sepolicy
 DEVICE_MANIFEST_FILE := device/hp/msm8996-common/manifest.xml
 TARGET_RECOVERY_FSTAB := device/hp/msm8996-common/rootdir/recovery.fstab

@@ -39,6 +39,8 @@ on post-fs-data
     mkdir /data/vendor/wifi 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    mkdir /data/vendor/location 0770 gps gps
+    mkdir /data/vendor/location/xtra 0770 gps gps
     mkdir /data/vendor/radio 0770 system radio
     mkdir /data/vendor/netmgr 0770 radio radio
     mkdir /data/vendor/port_bridge 0770 radio radio
@@ -79,6 +81,9 @@ on property:wc_transport.start_hci=true
 
 on property:wc_transport.start_hci=false
     stop vendor.wcnss_filter
+
+on property:sys.boot_completed=1
+    exec u:r:vendor_init:s0 root root -- /vendor/bin/sh /vendor/etc/init.hp.power.sh
 
 service vendor.wcnss_filter /vendor/bin/wcnss_filter
     class hal
