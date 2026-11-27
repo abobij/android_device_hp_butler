@@ -8,35 +8,35 @@ Based on stock 7.1.2 (falkon/raptor) and 8.1.0 (raptor)
 
 ## Status
 
-|      Feature      | raptor | falkon |                Note                 |
-| :---------------: | :----: | :----: | :---------------------------------: |
-|       Boot        |   ✅    |   ✅    |    Boots with display and touch.    |
-|      Wifi/BT      |   ✅    |   ✅    |                                     |
-|       Audio       |   ✅    |   ✅    | Main Speaker, Mic, 3.5mm Jack, A2DP |
-|        RIL        |   ⚠️   |   ⚠️   |                                     |
-|     Keystore      |   ✅    |   ❓    |                                     |
-|    Encryption     |   ⚠️   |   ⚠️   |          Disabled for now           |
-|      USB ADB      |   ✅    |   ✅    |                                     |
-|      USB OTG      |   ❓    |   ✅    |                                     |
-|      USB MTP      |   ⚠️   |   ⚠️   |                                     |
-|   Camera/Torch    |   ✅    |   ✅    | Buggy app, no video recording yet.  |
-|    Fingerprint    |   ⚠️   |   ⚠️   |                                     |
-|  IR Front Camera  |  N/A   |   ⚠️   |     `falkon` only. Not planned.     |
-| SELinux Enforcing |   ⚠️   |   ⚠️   |          Disabled for now           |
-|      Sensors      |   ⚠️   |   ⚠️   | Untested. Auto-rotate doesn't work. |
-|       GNSS        |   ⚠️   |   ⚠️   |                                     |
-|        NFC        |   ⚠️   |   ⚠️   |                                     |
-|      microSD      |   ⚠️   |   ⚠️   |                                     |
-|      Haptics      |   ✅    |   ✅    |                                     |
-| Notification LED  |   ⚠️   |   ⚠️   |                                     |
-|    DP Alt-mode    |   ❓    |   ❓    |                                     |
-| Wireless Charging |  N/A   |   ❓    |       `falkon` only. Untested       |
-|     Charging      |   ✅    |   ✅    | Offline charging hangs on bootlogo. |
+|      Feature      | raptor | falkon |                            Note                            |
+| :---------------: | :----: | :----: | :--------------------------------------------------------: |
+|       Boot        |   ✅    |   ✅    |               Boots with display and touch.                |
+|      Wifi/BT      |   ✅    |   ✅    |                                                            |
+|       Audio       |   ✅    |   ✅    |            Main Speaker, Mic, 3.5mm Jack, A2DP             |
+|        RIL        |   ✅    |   ❓    |       Dual-SIM works on `raptor` (SIM2 IMEI Unknown)       |
+|     Keystore      |   ✅    |   ❓    |                                                            |
+|    Encryption     |   ⚠️   |   ⚠️   |                      Disabled for now                      |
+|      USB ADB      |   ✅    |   ✅    |                                                            |
+|      USB OTG      |   ❓    |   ✅    |                                                            |
+|      USB MTP      |   ✅    |   ❓    |                                                            |
+|   Camera/Torch    |   ✅    |   ✅    |             Buggy app, no video recording yet.             |
+|    Fingerprint    |   ⚠️   |   ⚠️   |                                                            |
+|  IR Front Camera  |  N/A   |   ⚠️   |                `falkon` only. Not planned.                 |
+| SELinux Enforcing |   ⚠️   |   ⚠️   |                      Disabled for now                      |
+|      Sensors      |   ✅    |   ❓    |  42 SLPI sensors & auto-rotate on raptor; falkon untested  |
+|       GNSS        |   ✅    |   ❓    |   Multi-constellation 3D fix on `raptor`; `falkon` untested   |
+|        NFC        |   ⚠️   |   ⚠️   |                                                            |
+|      microSD      |   ⚠️   |   ⚠️   |                                                            |
+|      Haptics      |   ✅    |   ✅    |                                                            |
+| Notification LED  |   ✅    |   ❓    |                                                            |
+|    DP Alt-mode    |   ❓    |   ❓    |                                                            |
+| Wireless Charging |  N/A   |   ❓    |                  `falkon` only. Untested                   |
+|     Charging      |   ✅    |   ✅    |            Offline charging hangs on bootlogo.             |
 
 ## TODO
 
 * Fix camera app hangs and exposure problems.
-* Bring up sensors, RIL, and fingerprint.
+* Bring up everything.
 * Enable stereo on `falkon`.
 * Use own DTS instead of stock ones.
 * Fix SELinux and FDE.
