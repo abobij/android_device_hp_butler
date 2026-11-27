@@ -106,6 +106,38 @@ def system_image(image, raw):
     return raw
 
 
+def patch_loc_api_v02(data):
+    """Fix inverted NULL check and NULL msgTask in LocApiV02::createLocApiV02."""
+    # .text starts at VMA 0x8d78 / file offset 0x5d78 (bias 0x3000).
+    orig_branch = struct.pack("<I", 0xb40001e0)  # 0x9418: cbz x0, 0x9454
+    fixed_branch = struct.pack("<I", 0xb50001e0)  # 0x9418: cbnz x0, 0x9454
+    orig_body = struct.pack(
+        "<36I",
+        0x927ff908, 0xf100111f, 0x54000141, 0xd0000041, 0xd0000042, 0xd0000043,
+        0x910d1863, 0x910c6021, 0x910d5842, 0x52801fa4, 0x320007e0, 0x97fffc02,
+        0x52802300, 0x97fffc2c, 0xd2800001, 0x2a1503e2, 0xaa1303e3, 0xaa0003f4,
+        0x97fffc0f, 0xf00000a8, 0xf9458108, 0x6f00e400, 0x91004108, 0xb901029f,
+        0xf900869f, 0xad070280, 0x39044a9f, 0x7902229f, 0xf9000288, 0x97fffc08,
+        0xf00000a0, 0xf9458400, 0x900000c1, 0x9100a021, 0x320003e2, 0x97fffc06,
+    )
+    # Save msgTask (x0 -> x20) before debug log / operator new, then call LocApiV02::LocApiV02 (0x92d8).
+    fixed_body = struct.pack(
+        "<36I",
+        0xaa0003f4, 0x927ff908, 0xf100111f, 0x54000141, 0xd0000041, 0xd0000042,
+        0xd0000043, 0x910d1863, 0x910c6021, 0x910d5842, 0x52801fa4, 0x320007e0,
+        0x97fffc01, 0x52802300, 0x97fffc2b, 0xaa1403e1, 0x2a1503e2, 0xaa1303e3,
+        0xaa0003f4, 0x97ffff8e, 0x14000010, *(0xd503201f,) * 15,
+    )
+    if data[0x6418:0x641c] == fixed_branch and data[0x6454:0x64e4] == fixed_body:
+        return data
+    if data[0x6418:0x641c] != orig_branch or data[0x6454:0x64e4] != orig_body:
+        raise ValueError("unexpected libloc_api_v02.so LocApiV02::createLocApiV02 bytes")
+    patched = bytearray(data)
+    patched[0x6418:0x641c] = fixed_branch
+    patched[0x6454:0x64e4] = fixed_body
+    return bytes(patched)
+
+
 def extract_system(image, mappings, version, work, stage):
     system = system_image(image, work / "system.raw")
     props = subprocess.run(["debugfs", "-R", "cat /build.prop", str(system)],
@@ -135,6 +167,8 @@ def extract_system(image, mappings, version, work, stage):
             if decl in text and not text.lstrip().startswith("<?xml"):
                 text = decl + "\n" + text.replace(decl + "\n", "", 1).replace(decl, "", 1)
                 blob.write_text(text, encoding="utf-8")
+        elif dest.endswith("/8.1-gps/lib64/libloc_api_v02.so"):
+            blob.write_bytes(patch_loc_api_v02(blob.read_bytes()))
         target = stage / dest
         target.parent.mkdir(parents=True, exist_ok=True)
         blob.replace(target)
