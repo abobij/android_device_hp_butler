@@ -837,5 +837,5 @@
   <project name="toolchain/pgo-profiles" remote="aosp" revision="248f97c5fdc39400ebcb51b72ba2263fe12781a7" upstream="refs/tags/android-10.0.0_r41" dest-branch="refs/tags/android-10.0.0_r41" groups="pdk" />
   <repo-hooks in-project="platform/tools/repohooks" enabled-list="pre-upload" />
   <project name="android_device_hp_butler" path="device/hp" remote="butler" revision="refs/heads/hp-x3-bringup" />
-  <project name="android_kernel_hp_butler" path="kernel/hp/msm8996" remote="butler" revision="6efec673e86e52f64bc59f264218c6ccb28a4e5b" upstream="refs/heads/hp-x3-bringup" />
+  <project name="android_kernel_hp_butler" path="kernel/hp/msm8996" remote="butler" revision="079b7754f39ce70910960cc9e66341272d90328a" upstream="refs/heads/hp-x3-bringup" />
 </manifest>
